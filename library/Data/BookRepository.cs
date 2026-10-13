@@ -4,6 +4,7 @@ namespace library.Data;
 
 // Every SQL statement about books lives in this one class.
 public class BookRepository
+
 {
     private readonly NpgsqlDataSource _dataSource;
 
