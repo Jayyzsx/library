@@ -1,31 +1,134 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+:root {
+    --lib-green: #1f4d3a;
+    --lib-green-dark: #163828;
+    --lib-gold: #c9a227;
+    --lib-paper: #faf7f0;
+    --lib-ink: #2b2b2b;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    font-size: 15px;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    background: var(--lib-paper);
+    color: var(--lib-ink);
+    font-family: Georgia, "Times New Roman", serif;
+    margin-bottom: 60px;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+h1, h2, h3 {
+    color: var(--lib-green);
+    font-weight: 700;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.text-muted {
+    color: #6c6c6c !important;
+}
+
+/* Navbar */
+.lib-navbar {
+    background: var(--lib-green);
+    border-bottom: 4px solid var(--lib-gold);
+}
+
+    .lib-navbar .navbar-brand {
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: .5px;
+    }
+
+    .lib-navbar .nav-link {
+        color: #e8efe9 !important;
+    }
+
+        .lib-navbar .nav-link:hover {
+            color: var(--lib-gold) !important;
+        }
+
+/* Buttons */
+.btn-primary {
+    background: var(--lib-green);
+    border-color: var(--lib-green);
+}
+
+    .btn-primary:hover {
+        background: var(--lib-green-dark);
+        border-color: var(--lib-green-dark);
+    }
+
+.btn-outline-secondary {
+    color: var(--lib-green);
+    border-color: var(--lib-green);
+}
+
+    .btn-outline-secondary:hover {
+        background: var(--lib-green);
+        border-color: var(--lib-green);
+    }
+
+/* Cards */
+.lib-card {
+    background: #fff;
+    border: 1px solid #e6dfcf;
+    border-left: 5px solid var(--lib-gold);
+    border-radius: .6rem;
+    transition: transform .15s, box-shadow .15s;
+}
+
+    .lib-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    }
+
+.lib-price {
+    color: var(--lib-green);
+    font-weight: 700;
+    font-size: 1.15rem;
+}
+
+/* Member avatar */
+.lib-avatar {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    background: var(--lib-green);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* Hero (home page) */
+.lib-hero {
+    background: linear-gradient(135deg, var(--lib-green), var(--lib-green-dark));
+    color: #fff;
+    border-radius: .8rem;
+    padding: 3rem 2rem;
+}
+
+    .lib-hero h1 {
+        color: #fff;
+    }
+
+/* Forms */
+.card.card-body {
+    border: 1px solid #e6dfcf;
+    border-top: 5px solid var(--lib-green);
+    border-radius: .6rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--lib-green);
+    box-shadow: 0 0 0 .2rem rgba(31,77,58,.2);
+}
+
+.footer {
+    background: var(--lib-green-dark);
+    color: #cfd9d2;
+    line-height: 50px;
 }
