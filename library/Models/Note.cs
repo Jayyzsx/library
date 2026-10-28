@@ -1,8 +1,16 @@
-﻿namespace library.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace library.Models;
+
+public class Note
 {
-    public class Note
-    {
-        public string Words { get; internal set; }
-        public string NoteId { get; internal set; }
-    }
+    public long NoteId { get; set; }
+
+    [Required]
+    [StringLength(100)]
+    public string Title { get; set; } = "";
+
+    public string? Body { get; set; }
+
+    public DateOnly CreatedOn { get; set; }
 }

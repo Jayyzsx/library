@@ -1,34 +1,37 @@
 ﻿using library.Data;
 using library.Models;
 using Microsoft.AspNetCore.Mvc;
+
 namespace library.Controllers;
 
 public class NotesController : Controller
 {
     private readonly NoteRepository _notes;
 
-    // ASP.NET Core hands in the repository, because Program.cs registered it.
     public NotesController(NoteRepository notes)
     {
         _notes = notes;
     }
-    // GET /Notes : the list of notes.
+
+    // GET /Notes
     public async Task<IActionResult> Index()
     {
         var notes = await _notes.GetAllAsync();
-        return View(notes);                             // Views/Notes/Index.cshtml
+        return View(notes);
     }
-    // GET /Notes/Create : an empty form.
+
+    // GET /Notes/Create
     public IActionResult Create()
     {
         return View(new Note());
     }
-    // POST /Notes/Create : the form was submitted.
+
+    // POST /Notes/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Note note)
     {
-        if (!ModelState.IsValid)                        // a required field was left empty
+        if (!ModelState.IsValid)
         {
             return View(note);
         }
@@ -36,8 +39,9 @@ public class NotesController : Controller
         await _notes.AddAsync(note);
         return RedirectToAction(nameof(Index));
     }
-    // GET /Notes/Edit/5 : the form, filled with note 5.
-    public async Task<IActionResult> Edit(string id)
+
+    // GET /Notes/Edit/5
+    public async Task<IActionResult> Edit(long id)
     {
         var note = await _notes.GetByIdAsync(id);
         if (note == null)
@@ -46,7 +50,8 @@ public class NotesController : Controller
         }
         return View(note);
     }
-    // POST /Notes/Edit/5 : the changed form was submitted.
+
+    // POST /Notes/Edit
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(Note note)
@@ -59,8 +64,9 @@ public class NotesController : Controller
         await _notes.UpdateAsync(note);
         return RedirectToAction(nameof(Index));
     }
-    // GET /Notes/Delete/5 : ask "are you sure?"
-    public async Task<IActionResult> Delete(string id)
+
+    // GET /Notes/Delete/5
+    public async Task<IActionResult> Delete(long id)
     {
         var note = await _notes.GetByIdAsync(id);
         if (note == null)
@@ -69,14 +75,13 @@ public class NotesController : Controller
         }
         return View(note);
     }
-    // POST /Notes/Delete/5 : the delete was confirmed.
+
+    // POST /Notes/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(string id)
+    public async Task<IActionResult> DeleteConfirmed(long id)
     {
         await _notes.DeleteAsync(id);
         return RedirectToAction(nameof(Index));
     }
-
-
 }
