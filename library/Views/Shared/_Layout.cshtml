@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Library</title>
+    <title>@ViewData["Title"] - Yggdrasil Book Lending</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -13,11 +13,22 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Library</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <a class="brand-yg" asp-area="" asp-controller="Home" asp-action="Index">
+                    <svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
+                        <circle cx="32" cy="32" r="30" fill="#f3e9d2" stroke="#d9a441" stroke-width="2.5" />
+                        <!-- canopy -->
+                        <circle cx="32" cy="19" r="11" fill="#2f6b3f" />
+                        <circle cx="21" cy="26" r="8" fill="#3f8450" />
+                        <circle cx="43" cy="26" r="8" fill="#3f8450" />
+                        <!-- trunk -->
+                        <path d="M29 28 H35 L36 42 H28 Z" fill="#6f4e37" />
+                        <!-- branches -->
+                        <path d="M32 35 L23 27 M32 35 L41 27" stroke="#6f4e37" stroke-width="2" fill="none" stroke-linecap="round" />
+                        <!-- roots -->
+                        <path d="M32 42 C30 48 24 50 17 53 M32 42 V55 M32 42 C34 48 40 50 47 53"
+                              stroke="#4b2e1e" stroke-width="2.5" fill="none" stroke-linecap="round" />
+                    </svg>
+                </a>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -49,7 +60,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top text-muted py-3 mt-4 yg-footer">
         <div class="container">
             &copy; 2026 - library - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
