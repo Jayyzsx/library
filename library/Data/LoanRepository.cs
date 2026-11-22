@@ -4,16 +4,12 @@ using Npgsql;
 namespace library.Data;
 
 // Every SQL statement about loans lives in this one class.
-public class LoanRepository
+public class LoanRepository(NpgsqlDataSource dataSource)
 {
     public const int MaxOpenLoans = 3;             // the most books one member may have out at once
 
-    private readonly NpgsqlDataSource _dataSource;
+    private readonly NpgsqlDataSource _dataSource = dataSource;
 
-    public LoanRepository(NpgsqlDataSource dataSource)
-    {
-        _dataSource = dataSource;
-    }
     private static LoanView ReadLoan(NpgsqlDataReader reader)
     {
         return new LoanView
@@ -105,6 +101,30 @@ public class LoanRepository
         await using var command = _dataSource.CreateCommand(sql);
         command.Parameters.AddWithValue("id", loanId);
         await command.ExecuteNonQueryAsync();
+    }
+    // READ: one member's loans, newest first.
+    public async Task<List<LoanView>> GetByMemberAsync(long memberId)
+    {
+        const string sql =
+            "SELECT l.loan_id, l.member_id, m.full_name, b.title, l.loaned_on, l.returned_on, l.days_allowed, " +
+            "       CASE WHEN l.returned_on IS NOT NULL THEN 'Returned' " +
+            "            WHEN l.loaned_on + l.days_allowed < CURRENT_DATE THEN 'Overdue' " +
+            "            ELSE 'Out' END " +
+            "FROM lending.loan l " +
+            "JOIN lending.member m ON l.member_id = m.member_id " +
+            "JOIN lending.book   b ON l.book_id   = b.book_id " +
+            "WHERE l.member_id = @member_id " +
+            "ORDER BY l.loaned_on DESC, l.loan_id DESC;";
+        var loans = new List<LoanView>();
+        await using var command = _dataSource.CreateCommand(sql);
+        command.Parameters.AddWithValue("member_id", memberId);
+        await using var reader = await command.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            loans.Add(ReadLoan(reader));
+        }
+
+        return loans;
     }
 
 
